@@ -1,0 +1,35 @@
+name: Pruebas y paquete para subir
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo_sqlite, fileinfo
+      - run: composer install --no-interaction --prefer-dist
+      - run: cp .env.example .env && php artisan key:generate
+      - run: php artisan test
+
+  paquete:
+    # Arma un .zip listo para subir por FTP (incluye la carpeta vendor).
+    needs: pruebas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+      - run: zip -rq sitio-cursos.zip . -x '.git/*' 'tests/*' '.github/*' 'database/*.sqlite'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sitio-cursos-listo-para-subir
+          path: sitio-cursos.zip
+          retention-days: 14
