@@ -7,14 +7,15 @@
     <title>@hasSection('titulo')@yield('titulo') · @endif{{ config('cursos.nombre') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=1">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('img/icono.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=2">
 </head>
 <body>
 @php($u = auth()->user())
 <header class="encabezado">
     <div class="contenedor">
-        <a class="marca" href="{{ route('home') }}"><span class="marca-punto"></span>{{ config('cursos.nombre') }}</a>
+        <a class="marca" href="{{ route('home') }}" aria-label="{{ config('cursos.nombre') }} – inicio"><img src="{{ asset('img/logo.png') }}" alt="{{ config('cursos.nombre') }}" width="248" height="200"></a>
         <button class="menu-toggle" type="button" data-menu-toggle>Menú</button>
         <nav class="menu" data-menu>
             @guest
@@ -52,7 +53,7 @@
     </nav>
 @endif
 
-<main>
+<main class="@yield('fondo', 'decor-pagina')">
     @hasSection('sin-contenedor')
         @include('partials.flash', ['envolver' => true])
         @yield('contenido')
@@ -66,10 +67,10 @@
 
 <footer class="pie">
     <div class="contenedor">
-        <span><strong>{{ config('cursos.nombre') }}</strong> · Todos los derechos reservados {{ date('Y') }}</span>
+        <span style="display:flex;align-items:center;gap:14px"><img src="{{ asset('img/logo-blanco.png') }}" alt="" width="248" height="200"><span><strong>{{ config('cursos.nombre') }}</strong> · Todos los derechos reservados {{ date('Y') }}</span></span>
         <span>Aprende marketing digital paso a paso.</span>
     </div>
 </footer>
-<script src="{{ asset('js/app.js') }}?v=1"></script>
+<script src="{{ asset('js/app.js') }}?v=2"></script>
 </body>
 </html>

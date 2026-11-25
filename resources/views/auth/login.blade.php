@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('titulo', 'Entrar')
+@section('fondo', 'decor-hero')
 @section('contenido')
 <div class="auth">
     <div class="tarjeta">
