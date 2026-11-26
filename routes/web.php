@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\InboxController;
+use App\Http\Controllers\InstallController;
 use App\Models\Module;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,10 @@ Route::get('/', function () {
 
     return view('home', compact('modules'));
 })->name('home');
+
+// Instalación desde el navegador (solo si INSTALL_KEY está definida en .env)
+Route::get('/instalar', [InstallController::class, 'show'])->name('install');
+Route::post('/instalar', [InstallController::class, 'run'])->middleware('throttle:5,1');
 
 // Registro, inicio de sesión y recuperación de contraseña
 Route::middleware('guest')->group(function () {

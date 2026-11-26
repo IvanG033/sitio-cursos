@@ -32,12 +32,20 @@ php composer.phar install --no-dev --optimize-autoloader
    “Pruebas y paquete para subir” y descarga **sitio-cursos-listo-para-subir**.
    Ese .zip ya incluye la carpeta `vendor`.
 2. Descomprímelo y súbelo completo por FTP a la carpeta del dominio (ej. `cursos.tu-dominio.com/`).
+3. Genera la clave `APP_KEY` (en tu computadora con `php artisan key:generate --show`, o pídela a quien te ayude con el sitio) y escríbela en `.env`.
 
 ## 3. Configurar
 
 1. Copia `.env.example` como `.env` y llena: `APP_URL`, los datos `DB_*`, los `MAIL_*`
-   (incluida la contraseña del correo) y `ADMIN_NOTIFY_EMAIL`.
-2. Por SSH, dentro de la carpeta del sitio:
+   (incluida la contraseña del correo), `ADMIN_NOTIFY_EMAIL` y una clave larga en `INSTALL_KEY`.
+2. Crea las tablas y tu cuenta de administrador. Hay dos formas:
+
+**Sin SSH (desde el navegador)**: abre `https://tu-dominio.com/instalar`, escribe la clave
+`INSTALL_KEY` y tus datos, y pulsa *Instalar*. Listo. La misma página sirve más adelante para
+aplicar los cambios de base de datos de una versión nueva. Si quieres desactivarla, deja
+`INSTALL_KEY` vacía.
+
+**Con SSH**, dentro de la carpeta del sitio:
 
 ```bash
 php artisan key:generate

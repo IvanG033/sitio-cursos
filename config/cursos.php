@@ -15,4 +15,8 @@ return [
     // Ojo: el servidor (PHP) también tiene su propio límite; ver docs/DREAMHOST.md
     'max_video_mb' => (int) env('MAX_VIDEO_MB', 500),
     'max_archivo_mb' => (int) env('MAX_FILE_MB', 50),
+
+    // Clave para usar la página /instalar (crear tablas y el primer administrador
+    // sin necesidad de SSH ni phpMyAdmin). Si se deja vacía, la página se desactiva.
+    'clave_instalacion' => env('INSTALL_KEY'),
 ];
